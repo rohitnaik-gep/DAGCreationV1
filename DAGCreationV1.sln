@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAGCreationV1", "DAGCreationV1.csproj", "{91F84B3E-C4F7-4A3F-BDEA-35D07ECB6CDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91F84B3E-C4F7-4A3F-BDEA-35D07ECB6CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F84B3E-C4F7-4A3F-BDEA-35D07ECB6CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F84B3E-C4F7-4A3F-BDEA-35D07ECB6CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F84B3E-C4F7-4A3F-BDEA-35D07ECB6CDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E872E59F-A475-49AF-8E4E-7042BE6A7365}
+	EndGlobalSection
+EndGlobal
