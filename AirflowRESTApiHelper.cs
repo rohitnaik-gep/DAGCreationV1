@@ -14,7 +14,7 @@ namespace DAGCreationV1
 {
     public class AirflowRESTApiHelper
     {
-        string _dagsBaseUrl = "http://54.197.22.184:8080/api/v1/dags/";
+        string _dagsBaseUrl = "http://44.198.85.30:8080/api/v1/dags/";
         //public void CallAPI()
         //{
         //    HttpClient client = new HttpClient();
@@ -198,5 +198,31 @@ namespace DAGCreationV1
                 dagInfo = JsonConvert.DeserializeObject<Dag>(response.Content);                
             return dagInfo;
         }
+
+        public async Task<DagRuns> GetDagRuns(string dagId)
+        {
+            //http://54.197.22.184:8080/api/v1/dags/UAP_1/dagRuns
+            var client = new RestClient(_dagsBaseUrl + dagId + "/dagRuns");
+            var dagInfo = new DagRuns();
+            RestRequest request = new RestRequest();
+            request.Method = Method.Get;
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", "Basic YWRtaW46YWRtaW4=");
+            request.AddHeader("Cookie", "session=60037990-6dfa-4272-832a-d284b20761b6.gDG8h-i7VSOK-5riS-vGm3Aacbc");
+
+            var response = await client.ExecuteAsync(request);
+
+            if (response.Content.Contains("DAG not found"))
+            {
+                Thread.Sleep(5000);
+                await GetDagInfo(dagId);//waiting for DAG deployment
+            }
+            else
+                dagInfo = JsonConvert.DeserializeObject<DagRuns>(response.Content);
+            return dagInfo;
+        }
+
+
     }
 }

@@ -14,7 +14,8 @@ namespace DAGCreationV1
         static async Task Main(string[] args)
         {
             var workflowDagId = "UAP_Rohit_20";
-            var generatedDagInfo = new Program().WriteBricksDAG(workflowDagId);
+            var prog = new Program();
+            var generatedDagInfo = prog.WriteBricksDAG(workflowDagId);
             var airflowHelper = new AirflowRESTApiHelper();
 
             await airflowHelper.MoveWorkflowDAG(generatedDagInfo.DagFileLocation, generatedDagInfo.DagFileName, "sftp_operators_workflow");
@@ -22,6 +23,10 @@ namespace DAGCreationV1
             var dagInfo = await airflowHelper.GetDagInfo(workflowDagId);
 
             var pauseResp = airflowHelper.UnPauseWorkflowDAG(workflowDagId);
+
+            var dagRunId = "";
+            var allDagRuns = airflowHelper.GetDagRuns(workflowDagId).Result;
+            dagRunId = prog.GetLatestDagRunId(allDagRuns);
 
             //var dagResp = await airflowHelper.ExecuteWorkflowDAG(workflowDagId);
 
@@ -130,6 +135,14 @@ namespace DAGCreationV1
              * trigger a dag which will only move the main dag to dags folder
              * trigger main dag
              */
+        }
+
+        public string GetLatestDagRunId(DagRuns dagRuns)
+        {
+            if (dagRuns.total_entries == 0)
+                return string.Empty;
+            var dagRun = dagRuns.dag_runs.OrderByDescending(r => r.execution_date).FirstOrDefault();
+            return dagRun.dag_run_id;
         }
 
         public List<DataBricksOperator> FillBricksDetails()
